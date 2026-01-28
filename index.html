@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sheet2html - better sheets</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css"/>
+    <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script async defer src="https://accounts.google.com/gsi/client"></script>
+    <script async defer src="https://apis.google.com/js/api.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="header-container">
+        <div class="logo-section">
+          <img src="assets/logo.png" alt="sheet2html Logo" class="logo" />
+        </div>
+        <div class="nav-actions">
+          <!-- New Pricing Component -->
+          <div class="pricing-wrapper">
+            <span class="pricing-btn">Pricing</span>
+            <span class="free-badge">Free</span>
+          </div>
+
+          <!-- Your existing support button -->
+          <a
+            href="https://buymeacoffee.com/galore"
+            class="support-btn"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg
+              class="icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+              />
+            </svg>
+            <span>Support Us</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Skeleton Loader -->
+
+    <main class="container">
+      <section class="hero">
+        <h1 id="heroTitle">Transform Spreadsheets into Beautiful HTML</h1>
+        <p>
+          Convert your Google Sheets into clean, responsive HTML tables with
+          just a few clicks. No coding required.
+        </p>
+      </section>
+
+      <!-- Skeleton Loader -->
+      <div id="skeleton-loader">
+        <div class="skeleton-card">
+          <div class="skeleton-box skeleton-label"></div>
+          <div class="skeleton-box skeleton-input"></div>
+          <div class="skeleton-box skeleton-label mt-4"></div>
+          <div class="skeleton-grid">
+            <div class="skeleton-box skeleton-option"></div>
+            <div class="skeleton-box skeleton-option"></div>
+            <div class="skeleton-box skeleton-option"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="main-card">
+        <div class="input-section">
+          <div class="section-header" style="justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <div style="display: flex; align-items: center; gap: 7px;">
+              <label class="section-label" style="margin-bottom: 0;">Google Sheets URL</label>
+              <div class="mode-toggles" style="display: flex; gap: 0.5rem;">
+                  <button id="flashBtn" class="connect-btn active" title="Fast, no login, basic data only. Public Sheets Only.">
+                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;margin-right:0.4rem;">
+                          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                      </svg>
+                      Flash
+                  </button>
+                  <button id="authBtn" class="connect-btn" style="display: none;" title="Full formatting, private sheets, robust. Auth Required.">
+                    <svg class="icon" viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px;margin-right:0.4rem;">
+                       <path d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z"/>
+                    </svg>
+                    Connect
+                  </button>
+              </div>
+            </div>
+
+            <!-- Triple Output Toggle -->
+            <div class="triple-switch" data-value="HTML" id="outputFormatSwitch">
+              <span class="switch-option label-html" data-value="HTML">HTML</span>
+              <span class="switch-option label-json" data-value="JSON">JSON</span>
+              <span class="switch-option label-csv" data-value="CSV">CSV</span>
+              <span class="switch-selector"></span>
+            </div>
+          </div>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              class="sheet-input"
+              id="sheetUrl"
+              placeholder="https://docs.google.com/spreadsheets/d/..."
+              autocomplete="off"
+            />
+            <button id="pasteBtn" class="paste-btn">Paste</button>
+          </div>
+        </div>
+
+        <div class="input-section" id="conversionOptionsSection">
+          <label class="section-label">Conversion Options</label>
+          <div class="options-grid">
+            <div class="option-card" data-option="styling">
+              <div class="option-header">
+                <span class="option-title">Custom Styling</span>
+                <div class="toggle-switch"></div>
+              </div>
+              <p class="option-description">
+                Enable advanced HTML dashboard generation with themes and features
+              </p>
+            </div>
+
+            <div class="option-card" data-option="responsive">
+              <div class="option-header">
+                <span class="option-title">Responsive Design</span>
+                <div class="toggle-switch"></div>
+              </div>
+              <p class="option-description">
+                Automatically adapts to all screen sizes for perfect mobile viewing
+              </p>
+            </div>
+
+            <div class="option-card" data-option="headers">
+              <div class="option-header">
+                <span class="option-title">Header Row</span>
+                <div class="toggle-switch"></div>
+              </div>
+              <p class="option-description">
+                Treat first row as table headers with enhanced formatting
+              </p>
+            </div>
+
+            <div class="option-card" data-option="search">
+              <div class="option-header">
+                <span class="option-title">Search & Filter</span>
+                <div class="toggle-switch"></div>
+              </div>
+              <p class="option-description">
+                Add interactive search functionality to filter table data
+              </p>
+            </div>
+
+            <div class="option-card" data-option="sort">
+              <div class="option-header">
+                <span class="option-title">Sortable Columns</span>
+                <div class="toggle-switch"></div>
+              </div>
+              <p class="option-description">
+                Enable click-to-sort on column headers for easy organization
+              </p>
+            </div>
+
+            <div class="option-card" data-option="export">
+              <div class="option-header">
+                <span class="option-title">Export Options</span>
+                <div class="toggle-switch"></div>
+              </div>
+              <p class="option-description">
+                Include CSV and JSON export buttons in the output
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Custom Styling Options Section (Restored as 6-card grid) -->
+        <div class="input-section" id="customizationSection" style="display: none;">
+          <label class="section-label">Customization Options</label>
+          <div class="options-grid">
+            <!-- Card 1: Themes -->
+            <div class="option-card custom-setting-card" data-group="custom">
+                <div class="option-header">
+                    <span class="option-title">Color Themes</span>
+                </div>
+                <div class="theme-inputs" style="margin-top: 0.5rem;">
+                    <div class="theme-picker" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;">
+                        <button class="theme-btn active" data-theme="light">Light</button>
+                        <button class="theme-btn" data-theme="dark">Dark</button>
+                        <button class="theme-btn" data-theme="nord">Nord</button>
+                        <button class="theme-btn" data-theme="solarized">Solarized</button>
+                        <button class="theme-btn" data-theme="dracula">Dracula</button>
+                        <button class="theme-btn" data-theme="monokai">Monokai</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Accent Color -->
+            <div class="option-card custom-setting-card" data-group="custom">
+                <div class="option-header">
+                    <span class="option-title">Accent Color</span>
+                </div>
+                <div class="color-picker" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;">
+                     <button class="color-dot active" style="background: #667eea;" data-color="#667eea"></button>
+                     <button class="color-dot" style="background: #3b82f6;" data-color="#3b82f6"></button>
+                     <button class="color-dot" style="background: #10b981;" data-color="#10b981"></button>
+                     <button class="color-dot" style="background: #ef4444;" data-color="#ef4444"></button>
+                     <button class="color-dot" style="background: #f59e0b;" data-color="#f59e0b"></button>
+                     <button class="color-dot" style="background: #ec4899;" data-color="#ec4899"></button>
+                     <button class="color-dot" style="background: #8b5cf6;" data-color="#8b5cf6"></button>
+                     <button class="color-dot" style="background: #06b6d4;" data-color="#06b6d4"></button>
+                     <button class="color-dot" style="background: #14b8a6;" data-color="#14b8a6"></button>
+                     <button class="color-dot" style="background: #f43f5e;" data-color="#f43f5e"></button>
+                     <button class="color-dot" style="background: #fbbf24;" data-color="#fbbf24"></button>
+                     <button class="color-dot" style="background: #34d399;" data-color="#34d399"></button>
+                     <button class="color-dot" style="background: #60a5fa;" data-color="#60a5fa"></button>
+                     <button class="color-dot" style="background: #a78bfa;" data-color="#a78bfa"></button>
+                     <button class="color-dot" style="background: #f472b6;" data-color="#f472b6"></button>
+                     <button class="color-dot" style="background: #fb923c;" data-color="#fb923c"></button>
+                     <button class="color-dot" style="background: #4ade80;" data-color="#4ade80"></button>
+                     <button class="color-dot" style="background: #2dd4bf;" data-color="#2dd4bf"></button>
+                     
+                     <div class="custom-control-wrapper" style="display: flex; align-items: center;">
+                         <button id="picker-btn" class="picker-btn" title="Pick custom color">
+                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                 <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                                 <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                                 <path d="M2 2l7.5 1.5"></path>
+                                 <path d="M14 11l5 5"></path>
+                             </svg>
+                         </button>
+                         <input type="text" id="customAccentPicker" data-coloris style="width:0; height:0; border:none; padding:0; opacity:0; position:absolute;" value="#667eea">
+                     </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Typography -->
+            <div class="option-card custom-setting-card" data-group="custom">
+                <div class="option-header">
+                    <span class="option-title">Typography</span>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 0.8rem; margin-top: 0.5rem;">
+                     <div>
+                        <label class="setting-label">Font Family</label>
+                        <select id="setting-font-family" class="sheet-input" style="padding: 0.3rem; font-size: 0.85rem; width: 100%;">
+                             <option value="Inter">Inter (Modern)</option>
+                             <option value="Roboto">Roboto</option>
+                             <option value="Poppins">Poppins</option>
+                             <option value="Arial">Arial</option>
+                             <option value="Monaco">Monaco (Mono)</option>
+                             <option value="Georgia">Georgia</option>
+                             <option value="'Courier New'">Courier New</option>
+                        </select>
+                     </div>
+                     <div>
+                        <div style="display:flex; justify-content:space-between; align-items: center;">
+                            <label class="setting-label">Font Size</label>
+                            <span id="font-size-val" style="font-size:0.7rem; color:var(--text-secondary);">14px</span>
+                        </div>
+                        <input type="range" id="setting-font-size" min="10" max="20" value="14" class="slider">
+                     </div>
+                </div>
+            </div>
+
+            <!-- Card 4: Sizing & Shape -->
+            <div class="option-card custom-setting-card" data-group="custom">
+                <div class="option-header">
+                    <span class="option-title">Sizing & Shape</span>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.5rem;">
+                    <div>
+                        <label class="setting-label">Roundness</label>
+                        <select id="setting-roundness" class="sheet-input" style="padding: 0.25rem; font-size: 0.8rem;">
+                            <option value="none">None</option>
+                            <option value="sm">Small</option>
+                            <option value="md" selected>Medium</option>
+                            <option value="lg">Large</option>
+                            <option value="xl">Round</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="setting-label">Shadow</label>
+                        <select id="setting-shadow" class="sheet-input" style="padding: 0.25rem; font-size: 0.8rem;">
+                            <option value="none">None</option>
+                            <option value="sm">Small</option>
+                            <option value="md" selected>Medium</option>
+                            <option value="lg">Large</option>
+                        </select>
+                    </div>
+                    <div style="grid-column: span 2;">
+                        <label class="setting-label">Cell Padding</label>
+                        <select id="setting-padding" class="sheet-input" style="padding: 0.25rem; font-size: 0.8rem;">
+                            <option value="compact">Compact</option>
+                            <option value="normal" selected>Normal</option>
+                            <option value="spacious">Spacious</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5: Dashboard Config -->
+            <div class="option-card custom-setting-card" data-group="custom">
+                <div class="option-header">
+                    <span class="option-title">Dashboard Config</span>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 0.8rem; margin-top: 0.5rem;">
+                     <div>
+                        <label class="setting-label">Dashboard Name</label>
+                        <input type="text" id="dashboard-name-input" class="sheet-input" style="padding: 0.35rem; font-size: 0.85rem;" value="Data Dashboard" placeholder="My Dashboard">
+                     </div>
+                     <div>
+                        <label class="setting-label">Rows Per Page</label>
+                        <select id="setting-rows-per-page" class="sheet-input" style="padding: 0.25rem; font-size: 0.8rem;">
+                            <option value="all">Show All</option>
+                            <option value="5">5 Rows</option>
+                            <option value="10">10 Rows</option>
+                            <option value="20">20 Rows</option>
+                            <option value="50">50 Rows</option>
+                        </select>
+                     </div>
+                </div>
+            </div>
+
+            <!-- Card 6: Feature Toggles -->
+            <div class="option-card custom-setting-card" data-group="custom">
+                <div class="option-header">
+                     <span class="option-title">Feature Toggles</span>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.3rem; margin-top: 0.5rem; font-size: 0.75rem;">
+                    <label class="toggle-label"><input type="checkbox" id="setting-kpis" checked> KPIs</label>
+                    <label class="toggle-label"><input type="checkbox" id="setting-search" checked> Search</label>
+                    <label class="toggle-label"><input type="checkbox" id="setting-add-entry" checked> Entry</label>
+                    <label class="toggle-label"><input type="checkbox" id="setting-export" checked> Export</label>
+                    <label class="toggle-label"><input type="checkbox" id="setting-print" checked> Print</label>
+                    <label class="toggle-label"><input type="checkbox" id="setting-striped"> Striped</label>
+                    <label class="toggle-label"><input type="checkbox" id="setting-hover" checked> Hover</label>
+                    <label class="toggle-label"><input type="checkbox" id="setting-borders"> Borders</label>
+                    <label class="toggle-label"><input type="checkbox" id="setting-index" checked> Index</label>
+                    <label class="toggle-label"><input type="checkbox" id="setting-truncate" checked> Truncate</label>
+                    <label class="toggle-label"><input type="checkbox" id="setting-show-empty" checked> Empty</label>
+                </div>
+            </div>
+          </div>
+        </div>
+          </div>
+        </div>
+
+        <!-- (Removed old customizationSection) -->
+
+
+        <div class="action-section">
+          <button class="btn btn-primary" id="convertBtn" disabled>
+            <svg
+              class="icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <polyline points="16 18 22 12 16 6" />
+              <polyline points="8 6 2 12 8 18" />
+            </svg>
+            <span>Convert to HTML</span>
+          </button>
+          <button class="btn btn-secondary" id="previewBtn" disabled>
+            <svg
+              class="icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+            <span>Preview</span>
+          </button>
+        </div>
+
+        <div class="output-preview" id="outputPreview">
+          <div class="preview-placeholder">
+            <div class="preview-placeholder-icon">
+              <svg
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M3 3h7v7H3z" />
+                <path d="M14 3h7v7h-7z" />
+                <path d="M14 14h7v7h-7z" />
+                <path d="M3 14h7v7H3z" />
+              </svg>
+            </div>
+            <p>Your converted HTML will appear here</p>
+          </div>
+        </div>
+      </div>
+
+      <section class="comparison-section">
+
+        <div class="comparison-slider" id="comparisonSlider">
+          <div class="image-container">
+            <img src="assets/after-html.png" alt="After: Styled HTML" />
+            <span class="image-label">HTML Output</span>
+          </div>
+          <div class="image-overlay" id="imageOverlay">
+            <img src="assets/before-sheet.png" alt="Before: Raw Google Sheet" />
+            <span class="image-label">Original Sheet</span>
+          </div>
+          <div class="slider-handle" id="sliderHandle">
+            <div class="handle-line"></div>
+            <div class="handle-button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6" />
+                <path d="M9 18l6-6-6-6" display="none" /> <!-- Only left arrow needed for handle visual -->
+                <path d="M21 12H3" display="none"/>
+              </svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform: rotate(180deg)">
+                 <path d="M15 18l-6-6 6-6"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="how-to-section">
+        <div class="how-to-content">
+          <h2 class="how-to-title">How To Convert Google Sheets to HTML For <span class="title-free-badge">Free</span></h2>
+          <p class="how-to-lead">
+            Transform your spreadsheets into clean, responsive HTML tables in seconds. No coding required. 
+            Perfect for websites, blogs, and internal tools.
+          </p>
+
+          <div class="how-to-steps">
+            <div class="step">
+              <h3 class="step-title">1. Paste your Sheet URL</h3>
+              <p>
+                Simply copy the URL of your Google Sheet and paste it into the input field above. 
+                For best results with Flash mode, ensure your sheet is set to "Anyone with the link can view".
+              </p>
+              <p>Dragging and dropping links or files to the page also works.</p>
+            </div>
+
+            <div class="step">
+              <h3 class="step-title">2. Choose your Options</h3>
+              <p>
+                Select from modern features like <strong>Responsive Design</strong>, <strong>Custom Styling</strong>, 
+                and <strong>Search & Filter</strong>. We'll automatically handle all the CSS and JavaScript for you.
+              </p>
+            </div>
+
+            <div class="info-box">
+              <p>
+                <strong>Rather not sign in or share data?</strong><br>
+                Try <strong>Flash Mode</strong>. It's fast, private, and works with public sheets instantly. 
+                Your data stays secure and is processed entirely in your browser.
+              </p>
+            </div>
+
+            <div class="step">
+              <h3 class="step-title">3. Convert and Preview</h3>
+              <p>
+                Click <strong>Convert to HTML</strong> to generate your code. Use the <strong>Preview</strong> button 
+                to see exactly how your table will look before you use it.
+              </p>
+            </div>
+
+            <div class="step">
+              <h3 class="step-title">4. Export Your Result</h3>
+              <p>
+                Copy the code directly to your clipboard, or download it as a standalone HTML file. 
+                You can also export your data as <strong>JSON</strong> for more advanced integrations.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <span>Made with</span>
+        <span class="heart-icon">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+            />
+          </svg>
+        </span>
+        <span>by
+          <a href="https://blog.blacnova.net" target="_blank" rel="noopener"
+            >Blacnova Development</a
+          ></span>
+      </div>
+      <div class="footer-links">
+        <a href="legal/terms.html">Terms</a>
+        <a href="legal/policy.html">Policy</a>
+        <a href="legal/cookies.html">Cookies</a>
+      </div>
+    </footer>
+    <!-- Result Modal -->
+    <div id="resultModal" class="modal-backdrop">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Conversion Result</h2>
+                <button id="closeModalBtn" class="modal-close">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div id="modalBody" class="modal-body">
+                <!-- Content injected here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="downloadResultBtn">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Download HTML
+                </button>
+                <button class="btn btn-secondary" id="copyResultBtn">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                    Copy HTML
+                </button>
+                <button class="btn btn-primary" onclick="document.getElementById('resultModal').classList.remove('active')">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modular JavaScript files in dependency order -->
+    <script src="fetch.js" defer></script>
+    <script src="config.js" defer></script>
+    <script src="utils.js" defer></script>
+    <script src="auth.js" defer></script>
+    <script src="custom-generator.js" defer></script>
+    <script src="conversion.js" defer></script>
+    <script src="ui.js" defer></script>
+    <script src="main.js" defer></script>
+  </body>
+  <noscript>
+  <div class="noscript-content" style="max-width: 800px; margin: 40px auto; padding: 20px; font-family: system-ui, -apple-system, sans-serif;">
+    <h1>Google Sheets to JSON, CSV, and HTML Converter</h1>
+    
+    <p>Convert Google Sheets spreadsheets into multiple formats instantly. This free online tool transforms your Google Sheets data into JSON, CSV, or HTML tables without requiring any coding knowledge.</p>
+    
+    <h2>Features</h2>
+    <ul>
+      <li>Convert Google Sheets to JSON format for API integration and web applications</li>
+      <li>Export Google Sheets to CSV files for data analysis and Excel compatibility</li>
+      <li>Generate HTML tables from Google Sheets for website embedding</li>
+      <li>Real-time data conversion with customizable formatting options</li>
+      <li>Support for public and shared Google Sheets URLs</li>
+    </ul>
+    
+    <h2>How to Use This Tool</h2>
+    <p><strong>JavaScript Required:</strong> This converter requires JavaScript to function. Please enable JavaScript in your browser settings to use the interactive conversion tool.</p>
+    
+    <p>Once enabled, you can paste your Google Sheets URL, select your desired output format (JSON, CSV, or HTML), and instantly preview and download the converted data.</p>
+    
+    <h2>Supported Formats</h2>
+    <p><strong>JSON:</strong> Perfect for developers building web applications, APIs, and dynamic websites that need structured data.</p>
+    <p><strong>CSV:</strong> Ideal for data analysis, Excel imports, database migrations, and business intelligence tools.</p>
+    <p><strong>HTML:</strong> Best for embedding formatted tables directly into websites and web applications.</p>
+  </div>
+</noscript>
+
+</html>
