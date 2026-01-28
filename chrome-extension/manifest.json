@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "sheets2json",
+  "version": "1.0",
+  "description": "Export Google Sheets directly to premium JSON objects.",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "img/16.png",
+      "48": "img/48.png",
+      "128": "img/144.png"
+    }
+  },
+  "icons": {
+    "16": "img/16.png",
+    "48": "img/48.png",
+    "128": "img/144.png"
+  }
+}
