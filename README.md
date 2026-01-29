@@ -11,7 +11,7 @@
   </a>
   <a href="https://chromewebstore.google.com/detail/YOUR_EXTENSION_ID" target="_blank">
     <img src="https://img.shields.io/badge/Chrome_Extension-Sheet2JSON-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white" />
-  </a>
+  </a> ignore these for now <3
   <br><br><br><br>
 </p>
 
