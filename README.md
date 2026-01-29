@@ -21,22 +21,30 @@
   <br><br><br>
 </p> 
 
+<table align="center">
+  <tr>
+    <td valign="top">
+
 ## Features
 
 - Accepts a Google Sheets URL
 - Reads all tabs or a specific gid
-- Outputs clean HTML
 - Exports structured JSON
 - Generates raw CSV
-- Works with public and private sheets
-- No OAuth or account required(sign in required for private sheets.)<br><br><br>
+- Works with public and private sheets (available on [web](https://sheet2html.pages.dev/))
+- No OAuth or account required
+
+    </td>
+    <td valign="top" style="padding-left:40px;">
 
 ## Output Formats
 
 | Format | Description |
 |-------|------------|
-| HTML  | Readable markup for embedding or documentation |
+| HTML  | Readable markup for embedding or documentation (available on [web](https://sheet2html.pages.dev/)) |
 | JSON  | Structured data for applications and APIs |
 | CSV   | Standard comma separated export |
 
-
+    
+  </tr>
+</table><br><br><br>
