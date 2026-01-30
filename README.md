@@ -9,9 +9,9 @@
   <a href="https://sheet2html.pages.dev" target="_blank">
     <img src="https://img.shields.io/badge/Website-Sheet2Html-0A0A0A?style=for-the-badge&logo=googlechrome&logoColor=white" />
   </a>
-  <a href="https://github.com/nicholasxdavis/sheet2html/releases/tag/sheet2json" target="_blank">
+  <a href="https://chrome.google.com/webstore/devconsole/862209b4-5cb0-4cb5-9ebb-639afa60d196/kmbpbpecnangafhegnafelneepndecpi/edit" target="_blank">
     <img src="https://img.shields.io/badge/Chrome_Extension-Sheet2JSON-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white" />
-  </a> ignore these for now <3
+  </a> 
   <br><br><br><br>
 </p>
 
