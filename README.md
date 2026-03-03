@@ -1,6 +1,6 @@
 <p align="center">
   <img src="https://github.com/nicholasxdavis/sheet2html/blob/main/assets/logo.png?raw=true" alt="Sheet2Html" width="420" /><br>
-  Convert public Google Sheets into clean HTML, JSON, or CSV.<br>
+  Convert public Google Sheets into clean HTML, JSON, or CSV<br>
   Sheet2Html is a lightweight extractor that reads Google Sheets and outputs structured data formats that are ready to use in websites, apps, and scripts.<br>
   Try the demo now! <a href="https://sheet2html.pages.dev">https://sheet2html.pages.dev</a>
 </p>
